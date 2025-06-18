@@ -125,8 +125,8 @@ For more information, please refer to [repome](/apiservice/resource/repome/strea
 
 ## Getting Started
 
-## Configuration
-### rpcservice
+### Configuration
+#### rpcservice
 Update config file: [stream2river](rpcservice/conf/stream2river.yml)
 ```yaml
 LLM:
@@ -146,7 +146,7 @@ Coze:
   PrivateKey:
 ```
 
-### apiservice
+#### apiservice
 Update config file: [stream2river](apiservice/conf/stream2river.yml)
 ```yaml
 LLM:
