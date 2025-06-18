@@ -23,7 +23,7 @@ Streams to River 是一个基于 [Hertz](https://github.com/cloudwego/hertz) 和
 
 #### 系统架构图
 
-![系统架构图](/apiservice/resource/repome/system_architecture.png)
+![系统架构图](/apiservice/resource/repome/system_architecture_zh.png)
 
 #### 组件调用关系
 
@@ -122,8 +122,8 @@ sequenceDiagram
 
 ## 运行方式
 
-## 配置说明
-### rpcservice
+### 配置说明
+#### rpcservice
 更新配置文件 [stream2river](rpcservice/conf/stream2river.yml)
 ```yaml
 LLM:
@@ -143,7 +143,7 @@ Coze:
   PrivateKey:
 ```
 
-### apiservice
+#### apiservice
 更新配置文件 [stream2river](apiservice/conf/stream2river.yml)
 ```yaml
 LLM:
