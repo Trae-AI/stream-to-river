@@ -5,6 +5,7 @@ package llm
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"sync"
 
@@ -21,6 +22,8 @@ var (
 	arkModelEP string
 
 	once sync.Once
+
+	EmptyConfErr = errors.New("ark model configuration is empty")
 )
 
 // GetArkModel initializes and returns a new instance of the Ark chat model.
@@ -33,6 +36,9 @@ var (
 //   - *ark.ChatModel: A pointer to the initialized Ark chat model instance. Returns nil if an error occurs.
 //   - error: An error object if an unexpected error occurs during the model initialization process.
 func GetArkModel() (*ark.ChatModel, error) {
+	if arkModelAPIKey == "" || arkModelEP == "" {
+		return nil, EmptyConfErr
+	}
 	arkModel, err := ark.NewChatModel(context.Background(), &ark.ChatModelConfig{
 		APIKey: arkModelAPIKey,
 		Model:  arkModelEP,

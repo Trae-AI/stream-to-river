@@ -31,15 +31,15 @@ func main() {
 
 func initResource() {
 	// load config
-	dbConfig, lingoConfig, err := config.LoadConfig()
+	dbConfig, lingoConfig, err := config.LoadConfig("")
 	if err != nil {
-		log.Fatalf("loadConfig error: err=%v", err)
+		log.Fatalf("loadConfig failed: err=%v", err)
 	}
 
 	// Initialize the database with the loaded configuration
 	err = mysql.InitDBWithConfig(dbConfig)
 	if err != nil {
-		log.Fatalf("InitDBWithConfig error: err=%v", err)
+		log.Fatalf("InitDBWithConfig failed: err=%v", err)
 	}
 	log.Printf("InitDBWithConfig success. use:%s dbConfig: %v", dbConfig.DBType, dbConfig)
 

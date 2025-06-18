@@ -1,3 +1,6 @@
+// Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
+// SPDX-License-Identifier: MIT
+
 package coze
 
 import (
@@ -6,6 +9,8 @@ import (
 
 var (
 	CozeConf *CozeConfig
+
+	InvalidConfErr = errors.New("coze configuration is invalid")
 )
 
 // The key corresponds to the subkey in the stream2river.yml Coze configuration.
@@ -31,7 +36,11 @@ type CozeConfig struct {
 
 func InitCozeConfig(cozeCfg map[string]string) error {
 	if len(cozeCfg) == 0 {
-		return errors.New("coze config is empty")
+		return InvalidConfErr
+	}
+	if cozeCfg[Token] == "" || cozeCfg[ClientID] == "" || cozeCfg[PublishKey] == "" ||
+		cozeCfg[PrivateKey] == "" || cozeCfg[WorkflowID] == "" {
+		return InvalidConfErr
 	}
 	CozeConf = &CozeConfig{}
 	CozeConf.Token = cozeCfg[Token]

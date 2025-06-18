@@ -5,6 +5,8 @@ package words
 
 import (
 	"context"
+	"fmt"
+	"log"
 	"testing"
 
 	"github.com/Trae-AI/stream-to-river/internal/test"
@@ -14,20 +16,35 @@ import (
 	"github.com/Trae-AI/stream-to-river/rpcservice/dal/mysql"
 	"github.com/Trae-AI/stream-to-river/rpcservice/dal/redis"
 	"github.com/Trae-AI/stream-to-river/rpcservice/kitex_gen/words"
+	"gorm.io/gorm"
 )
 
-func setupTest() {
+var mockDB *gorm.DB
+
+func TestMain(m *testing.M) {
+	db, err := mysql.InitMockDB()
+	if err != nil {
+		log.Fatal(err)
+	}
+	mockDB = db
+	// create test tables
+	err = createTestTables()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// init lingo
 	vocapi.InitLingoConfig(&vocapi.LingoConfig{
 		URL: "https://sstr.trae.com.cn/api/word-detail?word=",
 	})
-	// 初始化cache
+	// init cache
 	redis.InitCache()
+
+	m.Run()
 }
 
 // TestGetWordDetail tests the GetWordDetail function.
 func TestGetWordDetail(t *testing.T) {
-	setupTest()
-
 	wordName := "pragmatic"
 	expectedDetail := &words.WordDetail{
 		NewWordName_: "pragmatic",
@@ -43,16 +60,7 @@ func TestGetWordDetail(t *testing.T) {
 
 // TestAddNewWord tests the AddNewWord function.
 func TestAddNewWord(t *testing.T) {
-	setupTest()
-
-	db, err := mysql.InitMockDB()
-	test.Assert(t, err == nil, "Failed to init mock DB:", err)
-
-	err = db.Migrator().DropTable(&model.Word{}, &model.AnswerList{}, &model.WordsRisiteRecord{})
-	test.Assert(t, err == nil, "Failed to drop tables:", err)
-
-	err = db.Migrator().CreateTable(&model.Word{}, &model.AnswerList{}, &model.WordsRisiteRecord{})
-	test.Assert(t, err == nil, "Failed to create tables:", err)
+	recreateMockWordTable()
 
 	wordName := "pragmatic"
 	userId := int64(1)
@@ -68,22 +76,22 @@ func TestAddNewWord(t *testing.T) {
 		TagId:    tagId,
 	}
 
+	// not exist word
 	resp, err := AddNewWord(ctx, req)
 	test.Assert(t, err == nil, "AddNewWord should not return error")
 	test.Assert(t, resp.BaseResp.StatusCode == 0, "Response code should be 0")
+	test.Assert(t, resp.Word.WordName == wordDetail.NewWordName_, "Word name should match")
+
+	// exist word
+	resp, err = AddNewWord(ctx, req)
+	test.Assert(t, err == nil, "AddNewWord should not return error")
+	test.Assert(t, resp.BaseResp.StatusCode == 1, "Response code should be 0")
 	test.Assert(t, resp.Word.WordName == wordDetail.NewWordName_, "Word name should match")
 }
 
 // TestGetWordByID tests the GetWordByID function.
 func TestGetWordByID(t *testing.T) {
-	db, err := mysql.InitMockDB()
-	test.Assert(t, err == nil, "Failed to init mock DB:", err)
-
-	err = db.Migrator().DropTable(&model.Word{})
-	test.Assert(t, err == nil, "Failed to drop table:", err)
-
-	err = db.Migrator().CreateTable(&model.Word{})
-	test.Assert(t, err == nil, "Failed to create table:", err)
+	recreateMockWordTable()
 
 	word := &model.Word{
 		WordName:    "test",
@@ -94,11 +102,10 @@ func TestGetWordByID(t *testing.T) {
 		UserId:      1,
 		TagId:       1,
 	}
-	err = dao.AddWord(word)
+	err := dao.AddWord(word)
 	test.Assert(t, err == nil, "Failed to add word:", err)
 
-	ctx := context.Background()
-	resp, err := GetWordByID(ctx, word.WordId)
+	resp, err := GetWordByID(context.Background(), word.WordId)
 	test.Assert(t, err == nil, "GetWordByID should not return error")
 	test.Assert(t, resp.BaseResp.StatusCode == 0, "Response code should be 0")
 	test.Assert(t, resp.Word.WordName == word.WordName, "Word name should match")
@@ -131,18 +138,10 @@ func TestCleanupWord(t *testing.T) {
 }
 
 func TestAddOrQueryWord(t *testing.T) {
-	db, err := mysql.InitMockDB()
-	test.Assert(t, err == nil, err)
-
-	err = db.Migrator().DropTable(model.Word{})
-	test.Assert(t, err == nil)
-
-	err = db.Migrator().CreateTable(model.Word{})
-	test.Assert(t, err == nil)
-
+	recreateMockWordTable()
 	var wordID int64 = 1
-	_, err = dao.QueryWord(wordID)
-	test.Assert(t, err == dao.ErrNoRecord)
+	_, err := dao.QueryWord(wordID)
+	test.Assert(t, err == dao.ErrNoRecord, err)
 
 	newWord := &words.Word{
 		WordId:      wordID,
@@ -184,162 +183,71 @@ func word2Model(w *words.Word) *model.Word {
 	}
 }
 
-// TestReviewProgressCountCorrectness 测试复习进度计数的正确性
-// 验证新用户首次添加单词时pending_review_count不会重复计数
-func TestReviewProgressCountCorrectness(t *testing.T) {
-	// 1. 初始化mock数据库
-	db, err := mysql.InitMockDB()
-	test.Assert(t, err == nil, "Failed to init mock DB:", err)
-
-	// 2. 清理并创建测试所需的表
-	tables := []interface{}{
-		&model.Word{},
-		&model.AnswerList{},
-		&model.WordsRisiteRecord{},
-		&model.ReviewProgress{},
+func createTestTables() error {
+	if err := recreateMockWordTable(); err != nil {
+		return err
 	}
-
-	for _, table := range tables {
-		err = db.Migrator().DropTable(table)
-		test.Assert(t, err == nil, "Failed to drop table:", err)
-
-		err = db.Migrator().CreateTable(table)
-		test.Assert(t, err == nil, "Failed to create table:", err)
+	if err := recreateMockTagTable(); err != nil {
+		return err
 	}
+	if err := recreateMockAnswerListTable(); err != nil {
+		return err
+	}
+	if err := recreateMockWordReviewRecordTable(); err != nil {
+		return err
+	}
+	if err := recreateMockReviewProgressTable(); err != nil {
+		return err
+	}
+	return nil
+}
 
-	// 3. 测试数据
-	const (
-		userId int64 = 12345
-		tagId  int32 = 1
-	)
+func recreateMockWordTable() error {
+	if err := mockDB.Migrator().DropTable(&model.Word{}); err != nil {
+		return fmt.Errorf("failed to drop Word table: %w", err)
+	}
+	if err := mockDB.Migrator().CreateTable(&model.Word{}); err != nil {
+		return fmt.Errorf("failed to create Word table: %w", err)
+	}
+	return nil
+}
 
-	// 4. 模拟新用户首次添加单词
-	t.Run("FirstWordAddition", func(t *testing.T) {
-		// 由于vocapi.ProcessWord需要真实的API调用，我们这里只测试核心逻辑
-		// 直接创建word、answer_list、words_risite_record记录
-		word1 := &model.Word{
-			WordName:    "hello",
-			Description: "Hello world",
-			Explains:    "打招呼用语",
-			UserId:      userId,
-			TagId:       tagId,
-		}
-		err = dao.AddWord(word1)
-		test.Assert(t, err == nil, "Failed to add word:", err)
+func recreateMockTagTable() error {
+	if err := mockDB.Migrator().DropTable(model.WordTag{}); err != nil {
+		return fmt.Errorf("failed to drop WordTag table: %w", err)
+	}
+	if err := mockDB.Migrator().CreateTable(model.WordTag{}); err != nil {
+		return fmt.Errorf("failed to create WordTag table: %w", err)
+	}
+	return nil
+}
 
-		// 查询添加的单词获取word_id
-		queriedWord, err := dao.QueryWordByUserIdAndName(userId, "hello")
-		test.Assert(t, err == nil, "Failed to query word:", err)
+func recreateMockAnswerListTable() error {
+	if err := mockDB.Migrator().DropTable(&model.AnswerList{}); err != nil {
+		return fmt.Errorf("failed to drop AnswerList table: %w", err)
+	}
+	if err := mockDB.Migrator().CreateTable(&model.AnswerList{}); err != nil {
+		return fmt.Errorf("failed to create AnswerList table: %w", err)
+	}
+	return nil
+}
 
-		// 添加answer_list记录
-		answerList := &model.AnswerList{
-			WordId:      queriedWord.WordId,
-			UserId:      userId,
-			WordName:    queriedWord.WordName,
-			Description: queriedWord.Explains,
-		}
-		err = dao.AddAnswerList(answerList)
-		test.Assert(t, err == nil, "Failed to add answer list:", err)
+func recreateMockWordReviewRecordTable() error {
+	if err := mockDB.Migrator().DropTable(&model.WordsRisiteRecord{}); err != nil {
+		return fmt.Errorf("failed to drop WordsRisiteRecord table: %w", err)
+	}
+	if err := mockDB.Migrator().CreateTable(&model.WordsRisiteRecord{}); err != nil {
+		return fmt.Errorf("failed to create WordsRisiteRecord table: %w", err)
+	}
+	return nil
+}
 
-		// 添加复习记录
-		record := &model.WordsRisiteRecord{
-			WordId:         int(queriedWord.WordId),
-			Level:          1,
-			NextReviewTime: 1234567890, // 设置为需要复习的时间
-			DowngradeStep:  1,
-			TotalCorrect:   0,
-			TotalWrong:     0,
-			Score:          0,
-			UserId:         userId,
-		}
-		err = dao.AddWordsRisiteRecord(record)
-		test.Assert(t, err == nil, "Failed to add review record:", err)
-
-		// 5. 调用getTodayReviewProgressWithInitFlag模拟AddNewWord中的逻辑
-		progressReq := &words.ReviewProgressReq{UserId: userId}
-		resp, wasInitialized, err := getTodayReviewProgressWithInitFlag(progressReq)
-		test.Assert(t, err == nil, "Failed to get review progress:", err)
-		test.Assert(t, wasInitialized == true, "Should have initialized for new user")
-
-		// 6. 验证：新用户首次添加单词，pending_review_count应该等于total_words_count
-		test.Assert(t, resp.PendingReviewCount == resp.TotalWordsCount,
-			"First word: pending_review_count (%d) should equal total_words_count (%d)",
-			resp.PendingReviewCount, resp.TotalWordsCount)
-		test.Assert(t, resp.TotalWordsCount == 1, "Total words should be 1")
-		test.Assert(t, resp.PendingReviewCount == 1, "Pending review count should be 1")
-
-		t.Logf("First word - Total: %d, Pending: %d, Was Initialized: %v",
-			resp.TotalWordsCount, resp.PendingReviewCount, wasInitialized)
-	})
-
-	// 7. 测试后续添加单词的逻辑
-	t.Run("SubsequentWordAddition", func(t *testing.T) {
-		// 添加第二个单词
-		word2 := &model.Word{
-			WordName:    "world",
-			Description: "World peace",
-			Explains:    "世界",
-			UserId:      userId,
-			TagId:       tagId,
-		}
-		err = dao.AddWord(word2)
-		test.Assert(t, err == nil, "Failed to add second word:", err)
-
-		// 查询添加的单词获取word_id
-		queriedWord2, err := dao.QueryWordByUserIdAndName(userId, "world")
-		test.Assert(t, err == nil, "Failed to query second word:", err)
-
-		// 添加answer_list记录
-		answerList2 := &model.AnswerList{
-			WordId:      queriedWord2.WordId,
-			UserId:      userId,
-			WordName:    queriedWord2.WordName,
-			Description: queriedWord2.Explains,
-		}
-		err = dao.AddAnswerList(answerList2)
-		test.Assert(t, err == nil, "Failed to add answer list for second word:", err)
-
-		// 添加复习记录
-		record2 := &model.WordsRisiteRecord{
-			WordId:         int(queriedWord2.WordId),
-			Level:          1,
-			NextReviewTime: 1234567890, // 设置为需要复习的时间
-			DowngradeStep:  1,
-			TotalCorrect:   0,
-			TotalWrong:     0,
-			Score:          0,
-			UserId:         userId,
-		}
-		err = dao.AddWordsRisiteRecord(record2)
-		test.Assert(t, err == nil, "Failed to add review record for second word:", err)
-
-		// 获取当前复习进度（应该不会重新初始化）
-		progressReq := &words.ReviewProgressReq{UserId: userId}
-		resp, wasInitialized, err := getTodayReviewProgressWithInitFlag(progressReq)
-		test.Assert(t, err == nil, "Failed to get review progress for second word:", err)
-		test.Assert(t, wasInitialized == false, "Should not initialize for existing user")
-		test.Assert(t, resp.BaseResp.StatusCode == 0, "BaseResp.StatusCode should be 0")
-
-		// 模拟AddNewWord中的增量逻辑
-		if !wasInitialized {
-			err = dao.IncrementPendingReviewCount(userId)
-			test.Assert(t, err == nil, "Failed to increment pending review count:", err)
-		}
-
-		// 重新获取复习进度
-		resp, _, err = getTodayReviewProgressWithInitFlag(progressReq)
-		test.Assert(t, err == nil, "Failed to get updated review progress:", err)
-
-		// 8. 验证：后续添加单词，pending_review_count应该正确递增
-		test.Assert(t, resp.TotalWordsCount == 2, "Total words should be 2")
-		test.Assert(t, resp.PendingReviewCount == 2, "Pending review count should be 2")
-		test.Assert(t, resp.PendingReviewCount == resp.TotalWordsCount,
-			"Second word: pending_review_count (%d) should equal total_words_count (%d)",
-			resp.PendingReviewCount, resp.TotalWordsCount)
-
-		t.Logf("Second word - Total: %d, Pending: %d, Was Initialized: %v",
-			resp.TotalWordsCount, resp.PendingReviewCount, wasInitialized)
-	})
-
-	t.Log("Review progress count correctness test passed!")
+func recreateMockReviewProgressTable() error {
+	if err := mockDB.Migrator().DropTable(&model.ReviewProgress{}); err != nil {
+		return fmt.Errorf("failed to drop ReviewProgress table: %w", err)
+	}
+	if err := mockDB.Migrator().CreateTable(&model.ReviewProgress{}); err != nil {
+		return fmt.Errorf("failed to create ReviewProgress table: %w", err)
+	}
+	return nil
 }

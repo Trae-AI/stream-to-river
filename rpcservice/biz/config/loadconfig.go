@@ -1,7 +1,10 @@
+// Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
+// SPDX-License-Identifier: MIT
+
 package config
 
 import (
-	"log"
+	"fmt"
 
 	"github.com/Trae-AI/stream-to-river/internal/config"
 	"github.com/Trae-AI/stream-to-river/rpcservice/biz/chat/coze"
@@ -9,6 +12,7 @@ import (
 	"github.com/Trae-AI/stream-to-river/rpcservice/biz/words/vocapi"
 	"github.com/Trae-AI/stream-to-river/rpcservice/dal/mysql"
 )
+
 // LocalConfigKey is the config key name
 type LocalConfigKey = string
 
@@ -35,14 +39,16 @@ const (
 //   - *mysql.DataBaseConfig: A pointer to the database configuration.
 //   - *vocapi.LingoConfig: A pointer to the Lingo configuration.
 //   - error: An error object if an unexpected error occurs during the configuration loading process.
-func LoadConfig() (*mysql.DataBaseConfig, *vocapi.LingoConfig, error) {
-	config.LoadConfig("")
+func LoadConfig(relativePath string) (*mysql.DataBaseConfig, *vocapi.LingoConfig, error) {
+	if err := config.LoadConfig(relativePath); err != nil {
+		return nil, nil, fmt.Errorf("load config failed: err=%v", err)
+	}
 	if err := coze.InitCozeConfig(config.GetStringMapString(COZE)); err != nil {
-		log.Fatalf("init coze error: err=%v", err)
+		return nil, nil, fmt.Errorf("init coze failed: err=%v", err)
 	}
 
 	if err := llm.InitModelCfg(config.GetString(CM_APIKEY), config.GetString(CM_MODEL)); err != nil {
-		log.Fatalf("load LLM.ChatModel config failed, err=%v", err)
+		return nil, nil, fmt.Errorf("load LLM.ChatModel config failed, err=%v", err)
 	}
 
 	// Load dbConfig

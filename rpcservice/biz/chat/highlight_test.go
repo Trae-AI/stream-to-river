@@ -6,20 +6,28 @@ package chat
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"testing"
 	"time"
 
 	"github.com/cloudwego/kitex/pkg/streaming"
+
 	"github.com/Trae-AI/stream-to-river/internal/config"
+	"github.com/Trae-AI/stream-to-river/internal/test"
 	"github.com/Trae-AI/stream-to-river/rpcservice/biz/chat/coze"
 	"github.com/Trae-AI/stream-to-river/rpcservice/dal/redis"
 	"github.com/Trae-AI/stream-to-river/rpcservice/kitex_gen/words"
 )
 
 func TestHighlight(t *testing.T) {
-	config.LoadConfig("../../")
-	coze.InitCozeConfig(config.GetStringMapString("Coze"))
+	err := config.LoadConfig("../../")
+	test.Assert(t, err == nil)
+
+	err = coze.InitCozeConfig(config.GetStringMapString("Coze"))
+	if errors.Is(err, coze.InvalidConfErr) {
+		t.Skip(coze.InvalidConfErr.Error())
+	}
 	highlightResourceChan := make(chan string, 100)
 	highlightResultChan := make(chan []HighlightItem, 100)
 	defer close(highlightResourceChan)

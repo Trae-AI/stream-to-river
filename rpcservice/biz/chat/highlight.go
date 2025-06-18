@@ -1,7 +1,8 @@
-package chat
-
 // Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 // SPDX-License-Identifier: MIT
+
+package chat
+
 import (
 	"context"
 	"strings"
@@ -10,6 +11,7 @@ import (
 	"github.com/bytedance/sonic"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/coze-dev/coze-go"
+
 	cozeClient "github.com/Trae-AI/stream-to-river/rpcservice/biz/chat/coze"
 )
 

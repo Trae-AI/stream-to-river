@@ -3,9 +3,9 @@
 package words
 
 import (
-	"github.com/Trae-AI/stream-to-river/rpcservice/kitex_gen/base"
 	"context"
 	"fmt"
+	"github.com/Trae-AI/stream-to-river/rpcservice/kitex_gen/base"
 	"github.com/cloudwego/kitex/pkg/streaming"
 )
 

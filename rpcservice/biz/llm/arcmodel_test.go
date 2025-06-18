@@ -8,14 +8,20 @@ import (
 	"io"
 	"testing"
 
-	"github.com/cloudwego/eino/schema"
 	"github.com/Trae-AI/stream-to-river/internal/config"
 	"github.com/Trae-AI/stream-to-river/internal/test"
+	"github.com/cloudwego/eino/schema"
 )
 
 func TestArkModel(t *testing.T) {
-	config.LoadConfig("../../")
-	InitModelConfig(config.GetString("LLM.ChatModel.APIKey"), config.GetString("LLM.ChatModel.Model"))
+	err := config.LoadConfig("../../")
+	test.Assert(t, err == nil)
+
+	err = InitModelCfg(config.GetString("LLM.ChatModel.APIKey"), config.GetString("LLM.ChatModel.Model"))
+	if err != nil {
+		// no ChatModel configuration
+		t.Skip()
+	}
 
 	arkModel, err := GetArkModel()
 	test.Assert(t, err == nil)

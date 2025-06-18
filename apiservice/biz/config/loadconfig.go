@@ -1,4 +1,4 @@
-package main
+package config
 
 import (
 	"log"
@@ -27,13 +27,15 @@ const (
 
 var once sync.Once
 
-// Init initializes the application configuration.
+// InitWithConfig initializes the application configuration.
 // It uses sync.Once to ensure that the configuration is loaded only once.
 // If an error occurs during configuration loading, the application will terminate.
-func initWithConfig(relativePath string) {
+func InitWithConfig(relativePath string) {
 	once.Do(func() {
 		// Load local config file
-		config.LoadConfig(relativePath)
+		if err := config.LoadConfig(relativePath); err != nil {
+			log.Fatalf("loadConfig failed: err=%v", err)
+		}
 
 		// Init JWT config
 		user.InitJWTSecret(config.GetString(JWT))

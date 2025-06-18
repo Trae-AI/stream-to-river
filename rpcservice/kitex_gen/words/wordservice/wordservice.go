@@ -3,9 +3,9 @@
 package wordservice
 
 import (
-	words "github.com/Trae-AI/stream-to-river/rpcservice/kitex_gen/words"
 	"context"
 	"errors"
+	words "github.com/Trae-AI/stream-to-river/rpcservice/kitex_gen/words"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
 	streaming "github.com/cloudwego/kitex/pkg/streaming"
