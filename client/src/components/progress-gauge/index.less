@@ -1,0 +1,127 @@
+.progress-gauge {
+  &__main-container{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    width: fit-content;
+    margin-top: 16px;
+  }
+
+  &__visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &__percent-start{
+    color: #616F93;
+    text-align: right;
+    font-variant-numeric: lining-nums tabular-nums;
+    font-family: "Byte Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 150;
+    line-height: normal;
+  }
+  &__percent-sign {
+    color: #666F8D;
+    font-variant-numeric: lining-nums tabular-nums;
+    font-family: "Byte Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 150;
+    line-height: normal;
+  }
+
+  &__middle {
+    // align-items: center;
+    position: relative;
+    justify-content: center;
+    display: flex;
+    // flex-direction: column;
+    gap: 2px;
+    height: 130px;
+    width: 226px;
+  }
+
+  &__svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  &__todays_progress{
+    display: flex;
+    width: 95px;
+    height: fit-content;
+    flex-direction: column;
+    position: absolute;
+    align-items: center;
+    z-index: 1;
+    bottom: 0;
+    gap: 2px;
+
+    &__label{
+      color: #303E61;
+      text-align: center;
+      font-family: "PingFang SC";
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 18px; /* 150% */
+    }
+
+    &__finished{
+      color: #161825;
+      text-align: center;
+      font-variant-numeric: lining-nums tabular-nums;
+      font-family: "Byte Sans";
+      font-size: 40px;
+      font-style: normal;
+      font-weight: 150;
+      line-height: 48px; /* 120% */
+    }
+
+    &__target{
+      color:#616F93;
+      text-align: center;
+      /* CN/12_P3_Regular */
+      font-family: "PingFang SC";
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+}
+
+// .progress-gauge-main-container {
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+//   justify-content: center;
+//   width: fit-content;
+// }
+
+// .progress-gauge-percent-start{
+//   color: #616F93;
+//   text-align: right;
+//   font-variant-numeric: lining-nums tabular-nums;
+//   font-family: "Byte Sans";
+//   font-size: 16px;
+//   font-style: normal;
+//   font-weight: 150;
+//   line-height: normal;
+// }
+
+// .progress-gauge-percent-sign {
+//   color: #666F8D;
+//   font-variant-numeric: lining-nums tabular-nums;
+//   font-family: "Byte Sans";
+//   font-size: 12px;
+//   font-style: normal;
+//   font-weight: 150;
+//   line-height: normal;
+// }

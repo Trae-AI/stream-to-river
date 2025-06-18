@@ -1,0 +1,63 @@
+.custom-navbar {
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding-top: 0px;
+  background: transparent;
+
+  .tab-container {
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    .avatar {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  .sub-nav-container {
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: start ;
+    padding: 10px 8px;
+    gap: 6px;
+  }
+  .sub-nav-title {
+    font-family: "PingFang SC";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 24px;
+
+    color: #161824;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+  }
+  .sub-nav-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .tab-item {
+    position: relative;
+    font-size: 18px;
+    margin-right: 16px;
+    color: #353e5c;
+    font-weight: 400;
+
+    &.active {
+      color: #161823;
+      font-weight: 500;
+      font-size: 22px;
+    }
+
+    &:active {
+      opacity: 0.7;
+    }
+  }
+}

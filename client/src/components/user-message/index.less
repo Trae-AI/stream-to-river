@@ -1,0 +1,35 @@
+.user-message-container {
+
+}
+
+.user-message-text {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 14px;
+  gap: 12px;
+  background: #ffffff;
+  border-radius: 12px 0px 12px 12px;
+  width: fit-content; /* 添加这行，让容器宽度适应内容 */
+  align-self: flex-end; /* 添加这行，确保容器靠右对齐 */
+
+  font-family: "PingFang SC";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  /* identical to box height */
+
+  color: #161824;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.auto-width-image > img {
+  width: auto;
+  height: 100%;
+}

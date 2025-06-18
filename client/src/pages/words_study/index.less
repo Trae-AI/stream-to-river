@@ -1,0 +1,107 @@
+.words-study {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: transparent;
+  }
+
+  &__back-btn {
+    width: 24px;
+    height: 24px;
+  }
+
+  &__title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333333;
+  }
+
+  &__menu {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__menu-icon,
+  &__close-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  &__content {
+    // margin-top: 21px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    // height: calc(100vh - 168px);
+    flex: 1;
+  }
+
+  &__cards-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__card-wrapper {
+    position: absolute;
+    width: 280px;
+    // height: 600px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-origin: center;
+  }
+
+  &__footer {
+    padding: 20px;
+    text-align: center;
+  }
+
+  &__progress {
+    /* 69 / 100 */
+    margin: 15px 0 31px;
+    font-family: "Byte Sans";
+    font-style: normal;
+    font-weight: 150;
+    font-size: 12px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-feature-settings: "tnum" on, "lnum" on;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: #646f90;
+  }
+
+  &__progress-bar {
+    width: 200px;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  &__progress-fill {
+    height: 100%;
+    background: #333333;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+}

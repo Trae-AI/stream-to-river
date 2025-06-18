@@ -1,0 +1,51 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.taro_page {
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.container {
+  background: linear-gradient(180deg, #e3f0ff 0%, #fbfdff 100%);
+  width: 100%;
+  height: 100%;
+  background-color: pink;
+  padding-top: env(safe - area - inset - top, 0);
+  padding-bottom: env(safe - area - inset - bottom, 0);
+  position: fixed;
+}
+
+.top-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 375px;
+  height: 220px;
+}
+
+img {
+  shape-rendering: crispEdges;
+  text-rendering: geometricPrecision;
+  image-rendering: -webkit-optimize-contrast;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+@font-face {
+  font-family: "Byte Sans";
+  src: url("@/assets/fonts/ByteSans.ttf") format("truetype");
+  font-weight: 150;
+  font-style: normal;
+}
+
+taro-button-core:after {
+  border: none;
+}

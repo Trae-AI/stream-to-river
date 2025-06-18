@@ -1,0 +1,31 @@
+FROM golang:1.23 as builder
+
+ENV GOPROXY=https://goproxy.cn|direct
+ENV GO111MODULE=on
+
+WORKDIR /code
+
+COPY . .
+
+RUN /bin/sh ./rpcservice/build.sh
+
+FROM debian:latest
+
+WORKDIR /rpcservice
+
+COPY --from=builder /code/rpcservice/output/. .
+
+RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources
+
+RUN apt update && apt install -y --no-install-recommends ca-certificates curl
+
+# install sqlite3
+RUN apt install sqlite3 -y
+# init db
+RUN sqlite3 "data/stream.db" < "data/stream_sqlite.sql"
+# init data
+RUN ./data/init_default_user
+
+RUN chmod +x bootstrap.sh
+
+ENTRYPOINT ["./bootstrap.sh"]

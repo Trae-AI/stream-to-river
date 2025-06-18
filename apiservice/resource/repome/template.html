@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streams to River API 文档</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    
+    <style>
+        {{.CSS}}
+    </style>
+    
+    <!-- Mermaid library -->
+    <script src="static/mermaid.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- 侧边栏 -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">
+                    <span>📚</span>
+                    <span>API 文档</span>
+                </div>
+                <!-- 主题切换按钮 -->
+                <button id="theme-toggle" class="theme-toggle" title="切换主题">
+                    <div class="theme-toggle-icon">
+                        <span class="sun-icon">☀️</span>
+                        <span class="moon-icon">🌙</span>
+                    </div>
+                </button>
+            </div>
+            <div class="sidebar-nav">
+                {{.Navigation}}
+            </div>
+        </nav>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1 class="content-title">Streams to River API 文档</h1>
+                <div class="content-meta">
+                    <span class="meta-badge">⚡ 实时更新</span>
+                    <span class="meta-badge">🔥 API</span>
+                    <span class="meta-badge">💎 v1.0</span>
+                    <a href="https://github.com/cloudwego/abcoder"
+                       target="_blank" 
+                       class="powered-by-link">
+                        powered by ABCoder
+                    </a>
+                </div>
+            </header>
+            
+            <div class="content-body">
+                <div class="markdown-content">
+                    {{.Content}}
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 置顶按钮 -->
+    <button id="back-to-top" class="back-to-top" title="回到顶部">
+        <svg class="back-to-top-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M7 14l5-5 5 5"/>
+            <path d="M7 20l5-5 5 5"/>
+        </svg>
+    </button>
+
+    <script>
+        {{.JavaScript}}
+    </script>
+</body>
+</html> 

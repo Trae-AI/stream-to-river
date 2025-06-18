@@ -1,0 +1,26 @@
+# 数据库相关配置
+DatabaseType: "sqlite"
+MySQL:
+  DSN: "root:123456@tcp(127.0.0.1:13306)/stream?charset=utf8mb4&parseTime=True&loc=Local"
+SQLite:
+  DBPath: "./data/stream.db"
+
+# VOC Lingo 火山引擎词典相关配置
+Lingo:
+  URL: "https://sstr.trae.com.cn/api/word-detail?word="
+
+LLM:
+  ChatModel:
+    # You need to go to the Volcano Ark platform https://console.volcengine.com/ark/region:ark+cn-beijing/model/detail?Id=doubao-1-5-pro-32k to apply for the latest Doubao Pro text model and get their latest api_key and model_id
+    APIKey: ""
+    Model: ""
+
+Coze:
+  BaseURL: "https://api.coze.cn"
+  # The following fields are configured with reference to rpcservice/biz/chat/coze/README.md
+  WorkflowID: ""
+  Auth: ""
+  Token: ""
+  ClientID:
+  PublishKey:
+  PrivateKey:

@@ -1,0 +1,158 @@
+.vocabulary-review {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 101;
+  background: linear-gradient(180deg, #e3f0ff 0%, #fbfdff 100%);
+  width: 100%;
+  height: 100%;
+  background-color: pink;
+  padding-top: env(safe - area - inset - top, 0);
+  padding-bottom: env(safe - area - inset - bottom, 0);
+
+  &__loading,
+  &__empty {
+    width: 100%;
+    height: calc(100% - 52px);
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 32px;
+    flex-direction: column;
+    &__text {
+      font-family: "PingFang SC";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 160%;
+      /* or 24px */
+      text-align: center;
+      color: #161824;
+    }
+    .great-icon {
+      width: 196.4px;
+      height: 40.2px;
+    }
+
+    .smile-icon {
+      width: 128px;
+      height: 128px;
+    }
+  }
+
+  &__content {
+    flex: 1;
+  }
+
+  &__footer {
+    box-sizing: border-box;
+    margin-top: 24px;
+    margin-bottom: 66px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100vw;
+  }
+
+  &__progress {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__progress-text {
+    /* 69 / 100 */
+    font-family: "Byte Sans";
+    font-style: normal;
+    font-weight: 150;
+    font-size: 12px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-feature-settings: "tnum" on, "lnum" on;
+    color: #646f90;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
+
+  &__progress-bar {
+    width: 100px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  &__progress-fill {
+    height: 100%;
+    background: #4caf50;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+  }
+
+  &__nav-btn {
+    font-family: "PingFang SC";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 21px;
+    text-align: right;
+    color: #0079ef;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+  }
+
+  &__link {
+    min-width: 120px;
+    text-align: right;
+  }
+
+  &__link-text {
+    font-family: "PingFang SC";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 21px;
+    /* identical to box height */
+    text-align: right;
+
+    color: #0079ef;
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+
+  &__image {
+    width: 120px;
+    height: 120px;
+  }
+
+  &__text {
+    font-family: PingFang SC;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 100%;
+    letter-spacing: 0px;
+    text-align: center;
+    color: #666f8d;
+  }
+}

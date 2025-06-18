@@ -1,0 +1,198 @@
+.word-card-large {
+  box-sizing: border-box;
+  padding: 32px 24px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+  width: 280px;
+  height: calc(100% - 42px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &-progress-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 6px;
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &-svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &-progress-current {
+    color: #161825;
+    text-align: right;
+    font-variant-numeric: lining-nums tabular-nums;
+    font-family: "Byte Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  &-progress-total {
+    color: #666f8d;
+    font-variant-numeric: lining-nums tabular-nums;
+    font-family: "Byte Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 200;
+    line-height: normal;
+  }
+
+  .word-text-large {
+    /* satellite */
+    font-family: "PingFang SC";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 39px;
+    text-align: center;
+
+    color: #161824;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+  }
+
+  .pronunciation-group-container {
+    margin-top: 16px;
+    max-width: 254px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .pronunciation-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 8px;
+    padding-right: 8px;
+
+    background: #f6f7fa;
+    border-radius: 32px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
+
+  .pronunciation-label {
+    font-size: 16px;
+    color: #666666;
+    margin-right: 12px;
+    min-width: 20px;
+  }
+
+  .pronunciation-text {
+    font-family: "PingFang SC";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height */
+
+    color: #646f90;
+  }
+
+  .speaker {
+    width: 20px;
+    height: 20px;
+    opacity: 0.6;
+  }
+
+  .explain {
+    /* 主体_描述 */
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 0;
+    gap: 10px;
+    font-family: "PingFang SC";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 21px;
+    text-align: left;
+    /* or 162% */
+    color: #161824;
+  }
+
+  .content-area {
+    max-height: calc(100% - 182px);
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    overflow: auto;
+    margin-top: 10px;
+    gap: 16px;
+  }
+
+  .word-large-card-learning-target{
+    font-family: "PingFang SC";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 24px;
+    /* or 185% */
+
+    color: #161824;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+
+  .word-large-card-description {
+    font-family: "PingFang SC";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 24px;
+    /* or 185% */
+
+    color: #161824;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .word-large-card-description-content {
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow-wrap: break-word;
+
+    font-family: "PingFang SC";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 21px;
+    /* or 162% */
+
+    color: #161824;
+  }
+}

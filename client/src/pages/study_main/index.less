@@ -1,0 +1,688 @@
+.vertical-center-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 86vh;
+}
+
+.trae-logo-container {
+  /*   */
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 194px;
+  height: 62px;
+  left: calc(50% - 194px / 2 + 0.5px);
+  bottom: 52px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .trae-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    gap: 11px;
+    width: 148px;
+    height: 40px;
+  }
+}
+
+.study-main {
+  padding: 40px 32px;
+
+  &.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text {
+      font-size: 32px;
+      color: #666;
+    }
+  }
+}
+
+// Common logo styles
+.logo {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.small {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+  }
+
+  .logo-text {
+    color: white;
+    font-size: 48px;
+    font-weight: bold;
+
+    .small & {
+      font-size: 24px;
+    }
+  }
+}
+
+// Status 1: Not logged in styles
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 80px;
+  margin-top: 120px;
+}
+
+.welcome-text {
+  margin-top: 36px;
+  width: 177px;
+  height: 120px;
+
+  .title {
+    display: block;
+    font-size: 48px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 16px;
+  }
+
+  .subtitle {
+    display: block;
+    font-size: 32px;
+    color: #666;
+  }
+}
+
+.login-section {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+
+  .login-btn {
+    display: flex;
+    padding: 12px 28px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 8px;
+    border: 1px solid #004cda;
+    background: linear-gradient(180deg, #007cff 0%, #0076ff 100%, #183bff 100%);
+    box-shadow: 0px 2px 5px 0px rgba(0, 90, 208, 0.17),
+      0px -2px 0.3px 0px rgba(0, 57, 129, 0.18) inset,
+      0px 2px 1px 0px rgba(255, 255, 255, 0.22) inset;
+    color: #fff;
+
+    font-family: "PingFang SC";
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    &:active {
+      background: #357abd;
+    }
+  }
+}
+
+.no-data-container {
+  display: flex;
+  width: 256px;
+  flex-direction: column;
+  align-items: center;
+
+  .username {
+    font-family: "PingFang SC";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 34px;
+    /* identical to box height */
+    text-align: center;
+    color: #161824;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+  }
+
+  .welcome-title {
+    margin-top: 12px;
+    color: var(--gray-3, #616f93);
+    text-align: center;
+    font-family: "PingFang SC";
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .add-word-btn {
+    /* ✅Button 按钮/品牌色按钮 */
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+
+    width: 141px;
+    height: 48px;
+
+    /* 填充 Fill/白 背景 @fill-0 */
+    background: #ffffff;
+    border: 0.5px solid rgba(22, 24, 36, 0.12);
+    box-shadow: 0px 2px 5px rgba(0, 90, 208, 0.08),
+      inset 0px -2px 0.3px rgba(0, 57, 129, 0.08),
+      inset 0px 2px 1px rgba(255, 255, 255, 0.22);
+    border-radius: 8px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+
+    /* 按钮 */
+    font-size: 17px;
+    line-height: 24px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #0079ef;
+    &:active {
+      background: #f0f8ff;
+    }
+  }
+}
+
+.logout-btn {
+  color: var(--gray-3, #616f93);
+  text-align: right;
+  /* CN/15_H4_Regular */
+  font-family: "PingFang SC";
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  position: absolute; /* 子元素绝对定位 */
+  bottom: 20px; /* 垂直置底 */
+}
+
+// Status 2: No data styles
+.welcome-message {
+  text-align: center;
+  margin: 120px 0;
+}
+
+.add-word-section {
+  display: flex;
+  justify-content: center;
+}
+
+// Status 3: Has data styles
+.study-overview {
+  margin-bottom: 60px;
+
+  .section-title {
+    font-size: 32px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 32px;
+    display: block;
+  }
+
+  .stats-container {
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  }
+
+  .stat-item {
+    text-align: center;
+    flex: 1;
+
+    .stat-number {
+      display: block;
+      font-size: 48px;
+      font-weight: bold;
+      color: #4a90e2;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      display: block;
+      font-size: 24px;
+      color: #666;
+    }
+  }
+}
+
+.text_area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  align-self: stretch;
+  margin-top: 36px;
+  margin-bottom: 36px;
+}
+
+.quick-actions {
+  margin-bottom: 60px;
+
+  .action-buttons {
+    display: flex;
+    gap: 24px;
+  }
+
+  .action-btn {
+    flex: 1;
+    background: white;
+    border: none;
+    border-radius: 16px;
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+
+    &.add-btn {
+      .btn-icon {
+        color: #4a90e2;
+      }
+    }
+
+    &.review-btn {
+      .btn-icon {
+        color: #ff6b35;
+      }
+    }
+
+    .btn-icon {
+      font-size: 48px;
+      font-weight: bold;
+    }
+
+    .btn-text {
+      font-size: 28px;
+      color: #333;
+      font-weight: 500;
+    }
+
+    &:active {
+      background: #f8f9fa;
+    }
+  }
+}
+
+.recent-words {
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+
+    .view-all {
+      font-size: 28px;
+      color: #4a90e2;
+    }
+  }
+
+  .word-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .word-item {
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  }
+
+  .word-content {
+    .word-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+
+      .word-text {
+        font-size: 36px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .word-audio {
+        .audio-icon {
+          font-size: 32px;
+        }
+      }
+    }
+
+    .word-definition {
+      font-size: 28px;
+      color: #666;
+      line-height: 1.4;
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .word-progress {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      .progress-text {
+        font-size: 24px;
+        color: #999;
+        white-space: nowrap;
+      }
+
+      .progress-bar {
+        flex: 1;
+        height: 8px;
+        background: #f0f0f0;
+        border-radius: 4px;
+        overflow: hidden;
+
+        .progress-fill {
+          height: 100%;
+          background: linear-gradient(90deg, #4a90e2 0%, #357abd 100%);
+          border-radius: 4px;
+          transition: width 0.3s ease;
+        }
+      }
+
+      .progress-ratio {
+        font-size: 24px;
+        color: #4a90e2;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+/* Complex sliding interaction styles */
+.study-main-container {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-scroll-view {
+  height: 100vh;
+  width: 100%;
+}
+
+/* Fixed top progress bar */
+.fixed-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  animation: slideDown 0.3s ease-out;
+
+  .progress-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .progress-bar-bg {
+    flex: 1;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ff9c1a 0%, #ffd836 100%);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+  }
+
+  .progress-text {
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+  }
+}
+
+/* Fixed top button */
+.fixed-button-container {
+  position: fixed;
+  top: 66px;
+  right: 16px;
+  z-index: 1001;
+  animation: slideInRight 0.6s ease-out;
+
+  &-el {
+    display: flex;
+    padding: 12px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 64px;
+    background: #fff;
+    box-shadow: 0px 1px 3px 0px rgba(23, 33, 63, 0.1);
+  }
+
+  &-review-btn {
+    color: #161825;
+    /* CN/15_H4_Medium */
+    font-family: "PingFang SC";
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
+
+/* Dashboard container */
+.gauge-container {
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.total-progress-parent {
+  display: flex;
+  margin-top: 14px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: fit-content;
+  flex-direction: column;
+}
+
+.total-progress-container {
+  display: flex;
+  padding: 6px 12px 6px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  border-radius: 32px;
+  background: rgba(100, 111, 144, 0.06);
+  &-text {
+    color: #666f8d;
+    font-family: "Byte Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+}
+
+.review-button-container {
+  margin-top: 24px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+}
+
+/* Word list container */
+.word-list-container {
+  position: relative;
+  z-index: 10;
+}
+
+/* Bottom spacer */
+.bottom-spacer {
+  height: 100px;
+}
+
+.review-button-btn {
+  display: flex;
+  padding: 12px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  border-radius: 64px;
+  background: #fff;
+  box-shadow: 0px 1px 3px 0px rgba(23, 33, 63, 0.1);
+
+  &-icon {
+    width: 24px;
+    height: 24px;
+    // box-shadow: 0px 1px 4px 0px rgba(15, 17, 20, 0.10);
+  }
+
+  &-text {
+    color: #161825;
+
+    /* CN/15_H4_Medium */
+    font-family: "PingFang SC";
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+}
+
+.fixed-top-container {
+  height: fit-content;
+  background: transparent;
+  display: flex;
+  flex-direction: row;
+  padding: 0px 16px;
+  margin: 2px 0px;
+
+  &__progress_container {
+    flex: 1;
+    min-width: 0;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+
+    &__completed-text {
+      font-family: Byte Sans;
+      font-weight: 150;
+      font-size: 28px;
+      line-height: 100%;
+      letter-spacing: 0%;
+      text-align: center;
+      vertical-align: middle;
+      font-variant-numeric-figure: lining-nums;
+      font-variant-numeric-spacing: tabular-nums;
+      color: #161823;
+    }
+
+    &__total-text {
+      font-family: Byte Sans;
+      font-weight: 150;
+      font-size: 16px;
+      line-height: 100%;
+      letter-spacing: 0px;
+      vertical-align: middle;
+      font-variant-numeric-figure: lining-nums;
+      font-variant-numeric-spacing: tabular-nums;
+      color: #666f8d;
+    }
+
+    &__svg {
+      width: 100px;
+      height: 12px;
+      margin-left: 10px;
+    }
+  }
+
+  &__review_container {
+    flex-shrink: 0;
+    width: fit-content;
+  }
+}
+
+/* Animation effects */
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+
+  &__image {
+    width: 120px;
+    height: 120px;
+  }
+
+  &__text {
+    font-family: PingFang SC;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 100%;
+    letter-spacing: 0px;
+    text-align: center;
+    color: #666f8d;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

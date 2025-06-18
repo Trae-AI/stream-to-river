@@ -1,0 +1,24 @@
+FROM golang:1.23 as builder
+
+ENV GOPROXY=https://goproxy.cn|direct
+ENV GO111MODULE=on
+
+WORKDIR /code
+
+COPY . .
+
+RUN /bin/sh ./apiservice/build.sh
+
+FROM debian:latest
+
+WORKDIR /apiservice
+
+COPY --from=builder /code/apiservice/output/. .
+
+RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources
+
+RUN apt update && apt install -y --no-install-recommends ca-certificates curl
+
+RUN chmod +x bootstrap.sh
+
+ENTRYPOINT ["./bootstrap.sh"]

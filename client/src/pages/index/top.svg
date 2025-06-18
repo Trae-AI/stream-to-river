@@ -1,0 +1,33 @@
+<svg width="375" height="220" viewBox="0 0 375 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0_24_3661" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="375" height="220">
+<rect width="375" height="220" fill="white" style="fill:white;fill-opacity:1;"/>
+</mask>
+<g mask="url(#mask0_24_3661)">
+<g opacity="0.06" filter="url(#filter0_f_24_3661)">
+<circle cx="326.5" cy="1.5" r="102.5" fill="#FF9838" style="fill:#FF9838;fill:color(display-p3 1.0000 0.5961 0.2196);fill-opacity:1;"/>
+</g>
+<g opacity="0.07" filter="url(#filter1_f_24_3661)">
+<circle cx="68" cy="62" r="108" fill="#576BFF" style="fill:#576BFF;fill:color(display-p3 0.3417 0.4185 1.0000);fill-opacity:1;"/>
+</g>
+<g opacity="0.08" filter="url(#filter2_f_24_3661)">
+<circle cx="182.5" cy="38.5" r="119.5" fill="#FF5757" style="fill:#FF5757;fill:color(display-p3 1.0000 0.3417 0.3417);fill-opacity:1;"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_f_24_3661" x="140" y="-185" width="373" height="373" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="42" result="effect1_foregroundBlur_24_3661"/>
+</filter>
+<filter id="filter1_f_24_3661" x="-119" y="-125" width="374" height="374" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="39.5" result="effect1_foregroundBlur_24_3661"/>
+</filter>
+<filter id="filter2_f_24_3661" x="-27" y="-171" width="419" height="419" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="45" result="effect1_foregroundBlur_24_3661"/>
+</filter>
+</defs>
+</svg>

@@ -1,0 +1,17 @@
+LLM:
+  AsrModel:
+    # You can read the "Sentence Recognition" access document in advance: https://www.volcengine.com/docs/6561/80816, and go to the Volcano Ark platform to access the sentence recognition capability https://console.volcengine.com/speech/service/15, and fill in the following AppID / Token / Cluster provided by the platform
+    AppID: ""
+    Token: ""
+    Cluster: ""
+  VisionModel:
+    # You need to go to the Volcano Ark platform https://console.volcengine.com/ark/region:ark+cn-beijing/model/detail?Id=doubao-1-5-vision-lite to apply for Doubao's latest Vision lite model and get their latest api_key and model_id
+    APIKey: ""
+    Model: ""
+
+# JWT_SECRET is used to sign and verify JWT tokens. It must be a long, random string.
+# Recommended to use at least 32 bytes (256 bits) of random data.
+# You can generate a secure random string using the following commands:
+#   openssl rand -base64 32
+#   or in Python: import secrets; print(secrets.token_urlsafe(32))
+JWT_SECRET: your_secret_key

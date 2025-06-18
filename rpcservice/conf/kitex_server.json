@@ -1,0 +1,8 @@
+{
+  "dk.stream2river.word": {
+    "limit": {
+      "connection_limit": 1000,
+      "qps_limit": 10000
+    }
+  }
+}

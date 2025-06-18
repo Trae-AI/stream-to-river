@@ -1,0 +1,110 @@
+.login-form {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 16px 20px;
+  max-width: 400px;
+  margin: 0 auto;
+  margin-top: -200px;
+
+  .form-header {
+    text-align: center;
+    margin-bottom: 30px;
+
+    .form-title {
+      font-size: 24px;
+      font-weight: 500;
+      color: #555;
+    }
+  }
+
+  .form-content {
+    .input-group {
+      margin-bottom: 20px;
+
+      .form-input {
+        width: 300px;
+        height: 38px;
+        padding: 0 10px;
+        border: 1px solid #e5e5e5;
+        border-radius: 8px;
+        font-size: 14px;
+        background-color: #fff;
+        line-height: 38px;
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        color: #666;
+
+        &::placeholder {
+          line-height: 38px;
+          color: #bbb;
+        }
+
+        &.error {
+          border-color: #ff6b7a;
+        }
+
+        &:focus {
+          border-color: #007aff;
+          outline: none;
+        }
+      }
+
+      .error-text {
+        color: #ff6b7a;
+        font-size: 12px;
+        margin-top: 5px;
+        display: block;
+      }
+    }
+
+    .submit-btn {
+      width: 100%;
+      height: 38px;
+      background-color: #007aff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 38px;
+      font-weight: 500;
+      margin-top: 20px;
+      box-sizing: border-box;
+      cursor: pointer;
+
+      &:disabled {
+        background-color: #d0d0d0;
+        cursor: not-allowed;
+      }
+
+      &:not(:disabled):hover {
+        background-color: #007aff;
+      }
+
+      &:not(:disabled):active {
+        background-color: #007aff;
+      }
+    }
+
+    .switch-mode {
+      text-align: center;
+      margin-top: 30px;
+
+      .switch-text {
+        color: #888;
+        font-size: 13px;
+        font-weight: 400;
+      }
+
+      .switch-link {
+        color: #007aff;
+        font-size: 13px;
+        margin-left: 5px;
+        text-decoration: underline;
+        cursor: pointer;
+        font-weight: 400;
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+.tag-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  width: fit-content;
+
+  &__item-selected {
+    display: flex;
+    padding: 3px 8px;
+    align-items: center;
+    gap: 8px;
+    border-radius: 25px;
+    border: 1px solid rgba(0, 121, 239, 0.10);
+    background: rgba(0, 121, 239, 0.10);
+    margin-left: 12px;
+
+    &__name{
+      color: #303E61;
+
+      /* CN/12_P3_Medium */
+      font-family: "PingFang SC";
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+  }
+
+  &__item {
+    display: flex;
+    padding: 3px 8px;
+    align-items: center;
+    gap: 8px;
+    border-radius: 25px;
+    border: 1px solid rgba(22, 24, 37, 0.08);
+    background: #FFF;
+    margin-left: 12px;
+
+    &__name{
+      color:#303E61;
+
+      /* CN/12_P3_Regular */
+      font-family: "PingFang SC";
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+}

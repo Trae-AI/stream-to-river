@@ -1,0 +1,32 @@
+{
+  "dk.stream2river.api/dk.stream2river.word": {
+    "timeout": {
+      "*": {
+        "conn_timeout_ms": 100,
+        "rpc_timeout_ms": 2000
+      }
+    },
+    "circuitbreaker": {
+      "*": {
+        "enable": true,
+        "err_rate": 0.3,
+        "min_sample": 100
+      }
+    },
+    "retry": {
+      "*": {
+        "enable": true,
+        "type": 0,
+        "failure_policy": {
+          "stop_policy": {
+            "max_retry_times": 3,
+            "max_duration_ms": 2000,
+            "cb_policy": {
+              "error_rate": 0.2
+            }
+          }
+        }
+      }
+    }
+  }
+}

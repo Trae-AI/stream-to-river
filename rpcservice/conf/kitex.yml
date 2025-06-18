@@ -1,0 +1,7 @@
+Address: ":8888"
+Log:
+  Level: info
+  Outputs:
+    - Stdout
+OpenTelemetry:
+  Endpoint: "localhost:4317"
