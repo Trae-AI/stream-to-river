@@ -5,10 +5,9 @@ package vocapi
 
 import (
 	"fmt"
-	"testing"
-	"time"
-
 	"github.com/Trae-AI/stream-to-river/rpcservice/dal/redis"
+	"net/http"
+	"testing"
 )
 
 func TestQueryWord(t *testing.T) {
@@ -24,6 +23,9 @@ func TestQueryWord(t *testing.T) {
 	for _, word := range wordList {
 		wordExplains, err := ProcessWord(word)
 		if err != nil {
+			if wordExplains != nil && wordExplains.ErrorNo == http.StatusTooManyRequests {
+				continue
+			}
 			t.Errorf("ProcessWord失败: %v", err.Error())
 		}
 		if wordExplains.ErrorNo != 0 || wordExplains.NewWordName == "" {
@@ -32,7 +34,5 @@ func TestQueryWord(t *testing.T) {
 		} else {
 			println(fmt.Sprintf("word=%v, explains=%v", word, wordExplains))
 		}
-		// add 100ms sleep for rate limit
-		time.Sleep(100 * time.Millisecond)
 	}
 }

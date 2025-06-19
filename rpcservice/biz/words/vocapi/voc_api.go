@@ -186,6 +186,7 @@ func ProcessWord(originalWordName string) (*WordExplains, error) {
 	// Check if the HTTP response is successful
 	if resp.StatusCode != http.StatusOK {
 		klog.Errorf("http.Get failed for word '%s', status code: %d", originalWordName, resp.StatusCode)
+		result.ErrorNo = resp.StatusCode
 		return result, nil
 	}
 
