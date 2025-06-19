@@ -24,6 +24,7 @@ func TestQueryWord(t *testing.T) {
 	for _, word := range wordList {
 		wordExplains, err := ProcessWord(word)
 		if err != nil {
+			// skip when get TooManyRequests error
 			if wordExplains != nil && wordExplains.ErrorNo == http.StatusTooManyRequests {
 				continue
 			}
