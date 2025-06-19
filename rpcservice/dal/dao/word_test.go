@@ -12,7 +12,9 @@ import (
 )
 
 func TestWordDBOperation(t *testing.T) {
-	mysql.InitMockDB()
+	db, _ := mysql.InitMockDB()
+	// create the required table
+	_ = db.AutoMigrate(&model.Word{})
 	var wordID int64 = 1
 
 	err := DelWord(wordID)

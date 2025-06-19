@@ -6,6 +6,7 @@ package vocapi
 import (
 	"fmt"
 	"testing"
+	"time"
 
 	"github.com/Trae-AI/stream-to-river/rpcservice/dal/redis"
 )
@@ -31,5 +32,7 @@ func TestQueryWord(t *testing.T) {
 		} else {
 			println(fmt.Sprintf("word=%v, explains=%v", word, wordExplains))
 		}
+		// add 100ms sleep for rate limit
+		time.Sleep(100 * time.Millisecond)
 	}
 }
