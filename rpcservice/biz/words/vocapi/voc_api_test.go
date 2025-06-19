@@ -5,9 +5,10 @@ package vocapi
 
 import (
 	"fmt"
-	"github.com/Trae-AI/stream-to-river/rpcservice/dal/redis"
 	"net/http"
 	"testing"
+
+	"github.com/Trae-AI/stream-to-river/rpcservice/dal/redis"
 )
 
 func TestQueryWord(t *testing.T) {
