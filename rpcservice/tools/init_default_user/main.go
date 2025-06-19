@@ -107,7 +107,7 @@ func AddDefaultUserWithWordList(defaultUserID int64, defaultWordList []string) e
 
 func main() {
 	// load config
-	dbConfig, lingoConfig, err := config.LoadConfig()
+	dbConfig, lingoConfig, err := config.LoadConfig("")
 	if err != nil {
 		log.Fatalf("loadConfig error: err=%v", err)
 	}

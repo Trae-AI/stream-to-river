@@ -153,3 +153,7 @@ tmp
 *.out
 *.db
 node_modules
+
+# Temporary configuration file generated during testing
+rpcservice/biz/config/conf/stream2river.yml
+apiservice/biz/config/conf/stream2river.yml

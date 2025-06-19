@@ -4,6 +4,7 @@
 package main
 
 import (
+	"github.com/Trae-AI/stream-to-river/apiservice/biz/config"
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 
@@ -16,7 +17,7 @@ import (
 // then registers API handlers and starts the server.
 func main() {
 	// Initialize the application configuration.
-	initWithConfig("")
+	config.InitWithConfig("")
 
 	// init HTTP server and tracing
 	opts, mws := hertz.NewServerSuite().Options()

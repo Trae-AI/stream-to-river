@@ -4,8 +4,6 @@ go 1.23.0
 
 toolchain go1.23.4
 
-replace github.com/apache/thrift => github.com/apache/thrift v0.13.0
-
 require (
 	github.com/bytedance/sonic v1.13.3
 	github.com/cloudwego/eino v0.3.43
@@ -27,6 +25,7 @@ require (
 	github.com/kitex-contrib/registry-etcd v0.2.6
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/spf13/viper v1.20.1
+	github.com/stretchr/testify v1.10.0
 	go.opentelemetry.io/otel v1.36.0
 	go.opentelemetry.io/otel/metric v1.36.0
 	golang.org/x/crypto v0.39.0
@@ -100,7 +99,6 @@ require (
 	github.com/spf13/afero v1.14.0 // indirect
 	github.com/spf13/cast v1.9.2 // indirect
 	github.com/spf13/pflag v1.0.6 // indirect
-	github.com/stretchr/testify v1.10.0 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/tidwall/gjson v1.18.0 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
@@ -139,3 +137,5 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	sigs.k8s.io/yaml v1.4.0 // indirect
 )
+
+replace github.com/apache/thrift => github.com/apache/thrift v0.13.0

@@ -196,7 +196,7 @@ func ChatHandler(ctx context.Context, req *words.ChatReq, stream words.WordServi
 func ArkModelStreamMsg(ctx context.Context, history []*schema.Message, userMsg string) (outStream *schema.StreamReader[*schema.Message], err error) {
 	arkModel, err := llm.GetArkModel()
 	if err != nil {
-		err = fmt.Errorf("arkModel init failed, err=%v", err)
+		err = fmt.Errorf("arkModel init failed, err=%w", err)
 		klog.CtxErrorf(ctx, "%s", err)
 		return
 	}

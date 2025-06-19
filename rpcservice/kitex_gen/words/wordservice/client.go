@@ -3,8 +3,8 @@
 package wordservice
 
 import (
-	words "github.com/Trae-AI/stream-to-river/rpcservice/kitex_gen/words"
 	"context"
+	words "github.com/Trae-AI/stream-to-river/rpcservice/kitex_gen/words"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"
 	streamcall "github.com/cloudwego/kitex/client/callopt/streamcall"
