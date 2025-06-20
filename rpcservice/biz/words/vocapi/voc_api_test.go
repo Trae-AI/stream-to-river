@@ -5,6 +5,7 @@ package vocapi
 
 import (
 	"fmt"
+	"net/http"
 	"testing"
 
 	"github.com/Trae-AI/stream-to-river/rpcservice/dal/redis"
@@ -23,6 +24,10 @@ func TestQueryWord(t *testing.T) {
 	for _, word := range wordList {
 		wordExplains, err := ProcessWord(word)
 		if err != nil {
+			// skip when get TooManyRequests error
+			if wordExplains != nil && wordExplains.ErrorNo == http.StatusTooManyRequests {
+				continue
+			}
 			t.Errorf("ProcessWord失败: %v", err.Error())
 		}
 		if wordExplains.ErrorNo != 0 || wordExplains.NewWordName == "" {

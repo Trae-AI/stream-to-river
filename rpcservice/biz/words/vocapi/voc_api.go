@@ -22,7 +22,7 @@ var WordExplainCacheExpireTime = 24 * 7 * time.Hour
 
 // LingoServiceRequestTimeout is the timeout duration for HTTP requests to the Lingo dictionary service.
 // The default timeout is 3 seconds.
-var LingoServiceRequestTimeout = 3 * time.Second
+var LingoServiceRequestTimeout = 5 * time.Second
 
 // WordNotExistErrorMsg is the error message returned when a word is not found.
 var WordNotExistErrorMsg string = "这个词暂时不见了，请联系客服或稍后再试~"
@@ -186,6 +186,7 @@ func ProcessWord(originalWordName string) (*WordExplains, error) {
 	// Check if the HTTP response is successful
 	if resp.StatusCode != http.StatusOK {
 		klog.Errorf("http.Get failed for word '%s', status code: %d", originalWordName, resp.StatusCode)
+		result.ErrorNo = resp.StatusCode
 		return result, nil
 	}
 
