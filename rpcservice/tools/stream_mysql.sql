@@ -32,7 +32,7 @@ CREATE TABLE `word_tags` (
   UNIQUE KEY `uk_tag_name` (`tag_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='词语标签';
 
-CREATE TABLE `words_risite_record` (
+CREATE TABLE `words_recite_record` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID 主键',
   `word_id` int NOT NULL COMMENT '单词ID',
   `level` int NOT NULL COMMENT '难度等级',
@@ -43,10 +43,10 @@ CREATE TABLE `words_risite_record` (
   `score` int NOT NULL COMMENT '得分',
   `user_id` bigint NOT NULL COMMENT '用户id',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uniq_words_risite_user_id_next_review_time` (`user_id`,`next_review_time`),
-  KEY `idx_words_risite_user_id_word_id` (`user_id`,`word_id`),
-  KEY `idx_words_risite_user_id_level` (`user_id`,`level`)
-) ENGINE=InnoDB AUTO_INCREMENT=22323 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='risite记录';
+  UNIQUE KEY `uniq_words_recite_user_id_next_review_time` (`user_id`,`next_review_time`),
+  KEY `idx_words_recite_user_id_word_id` (`user_id`,`word_id`),
+  KEY `idx_words_recite_user_id_level` (`user_id`,`level`)
+) ENGINE=InnoDB AUTO_INCREMENT=22323 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='recite记录';
 
 CREATE TABLE `review_progress` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',

@@ -30,7 +30,7 @@ BEGIN
   WHERE id = NEW.id;
 END;
 
-CREATE TABLE `words_risite_record` (
+CREATE TABLE `words_recite_record` (
   `id` INTEGER PRIMARY KEY,
   `word_id` int NOT NULL,
   `level` int NOT NULL,

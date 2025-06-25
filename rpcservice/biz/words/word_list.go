@@ -58,17 +58,17 @@ func GetWordListHandler(ctx context.Context, req *words.WordListReq) (resp *word
 	}
 
 	// Batch query review records for the extracted word IDs
-	var recordMap map[int64]*model.WordsRisiteRecord
+	var recordMap map[int64]*model.WordsReciteRecord
 	if len(wordIds) > 0 {
-		recordMap, err = dao.GetWordsRisiteRecordsByUserAndWordIds(req.UserId, wordIds)
+		recordMap, err = dao.GetWordsReciteRecordsByUserAndWordIds(req.UserId, wordIds)
 		if err != nil {
 			// Log the error if the batch query fails, but continue the main process
-			klog.CtxErrorf(ctx, "Failed to get risite records: %v", err)
-			recordMap = make(map[int64]*model.WordsRisiteRecord)
+			klog.CtxErrorf(ctx, "Failed to get recite records: %v", err)
+			recordMap = make(map[int64]*model.WordsReciteRecord)
 		}
 	} else {
 		// Initialize an empty map if there are no word IDs
-		recordMap = make(map[int64]*model.WordsRisiteRecord)
+		recordMap = make(map[int64]*model.WordsReciteRecord)
 	}
 
 	// Convert the retrieved word models and review records into the response format
@@ -104,7 +104,7 @@ func GetWordListHandler(ctx context.Context, req *words.WordListReq) (resp *word
 			// Add the current review level
 			Level: level,
 			// Add the maximum review level from the global configuration
-			MaxLevel: global.MAX_RISITE_LEVEL,
+			MaxLevel: global.MAX_REVIEW_LEVEL,
 		})
 	}
 

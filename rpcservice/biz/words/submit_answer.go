@@ -98,10 +98,10 @@ func SubmitAnswer(ctx context.Context, userId int64, wordId int64, answerId int6
 	correctAnswerId = correctAnswerList.AnswerId
 
 	// Query the word review record
-	risiteRecord, err := dao.GetWordsRisiteRecord(userId, wordId)
+	reciteRecord, err := dao.GetWordsReciteRecord(userId, wordId)
 	if err != nil {
 		// Log the error and return a failure response if the review record query fails
-		klog.CtxErrorf(ctx, "Failed to get words_risite_record: user_id=%v, word_id=%v, error=%v", userId, wordId, err)
+		klog.CtxErrorf(ctx, "Failed to get words_recite_record: user_id=%v, word_id=%v, error=%v", userId, wordId, err)
 		resp.BaseResp = common.BuildBaseResp(-1, "复习记录不存在")
 		return resp, nil
 	}
@@ -116,7 +116,7 @@ func SubmitAnswer(ctx context.Context, userId int64, wordId int64, answerId int6
 	// Update the review record based on the answer correctness
 	if isCorrect {
 		// Log the old review record information
-		klog.CtxInfof(ctx, "correct old_info:%v my_tag_id:%v", risiteRecord, word.TagId)
+		klog.CtxInfof(ctx, "correct old_info:%v my_tag_id:%v", reciteRecord, word.TagId)
 		// Initialize the maximum score
 		maxScore := global.MAX_SCORE
 
@@ -129,62 +129,62 @@ func SubmitAnswer(ctx context.Context, userId int64, wordId int64, answerId int6
 			}
 		}
 		// Increment the total correct count
-		risiteRecord.TotalCorrect++
+		reciteRecord.TotalCorrect++
 		// Update the score based on the question type
-		risiteRecord.Score |= (1 << (questionType - 1))
+		reciteRecord.Score |= (1 << (questionType - 1))
 		resp.Message = "答案正确"
 
 		// Check if the review level needs to be increased
-		if (risiteRecord.Score & maxScore) == maxScore {
+		if (reciteRecord.Score & maxScore) == maxScore {
 			klog.Info("update level")
 			// Reset the score
-			risiteRecord.Score = 0
+			reciteRecord.Score = 0
 			// Calculate the next review interval
-			interval := global.GetReviewInterval(risiteRecord.Level)
+			interval := global.GetReviewInterval(reciteRecord.Level)
 
 			// Calculate the next review time
 			now := time.Now()
 			nextReviewTime := now.Add(time.Duration(interval) * time.Second)
-			risiteRecord.NextReviewTime = nextReviewTime.Unix()
+			reciteRecord.NextReviewTime = nextReviewTime.Unix()
 			klog.CtxInfof(ctx, "Setting next review time: current=%v, interval=%d seconds, next=%v",
 				now.Format("2006-01-02 15:04:05"), interval, nextReviewTime.Format("2006-01-02 15:04:05"))
 
 			// Increase the review level
-			risiteRecord.Level++
+			reciteRecord.Level++
 			completedLevel = true // Mark that the level has increased
 		}
 		// Log the new review record information
-		klog.CtxInfof(ctx, "correct new_info:%v", risiteRecord)
+		klog.CtxInfof(ctx, "correct new_info:%v", reciteRecord)
 	} else {
 		// Log the old review record information
-		klog.CtxInfof(ctx, "wrong old_info:%v", risiteRecord)
+		klog.CtxInfof(ctx, "wrong old_info:%v", reciteRecord)
 		// Increment the total wrong count
-		risiteRecord.TotalWrong++
+		reciteRecord.TotalWrong++
 		// Store the previous score
-		prevScore := risiteRecord.Score
+		prevScore := reciteRecord.Score
 		// Update the score based on the question type
-		risiteRecord.Score &= ^(1 << (questionType - 1))
+		reciteRecord.Score &= ^(1 << (questionType - 1))
 		resp.Message = "答案错误"
 
 		// Check if the review level needs to be decreased
-		if risiteRecord.Score == 0 && prevScore > 0 {
-			if risiteRecord.Level > 0 {
-				risiteRecord.Level--
+		if reciteRecord.Score == 0 && prevScore > 0 {
+			if reciteRecord.Level > 0 {
+				reciteRecord.Level--
 			}
 		}
 		// Set the next review time to the current time
 		now := time.Now()
-		risiteRecord.NextReviewTime = now.Unix()
+		reciteRecord.NextReviewTime = now.Unix()
 		klog.CtxInfof(ctx, "Setting immediate review time: %v", now.Format("2006-01-02 15:04:05"))
 		// Log the new review record information
-		klog.CtxInfof(ctx, "wrong new_info:%v", risiteRecord)
+		klog.CtxInfof(ctx, "wrong new_info:%v", reciteRecord)
 	}
 
 	// Update the review record in the database
-	err = dao.UpdateWordsRisiteRecord(risiteRecord)
+	err = dao.UpdateWordsReciteRecord(reciteRecord)
 	if err != nil {
 		// Log the error and return a failure response if the update fails
-		klog.CtxErrorf(ctx, "Failed to update words_risite_record: %v", err)
+		klog.CtxErrorf(ctx, "Failed to update words_recite_record: %v", err)
 		resp.BaseResp = common.BuildBaseResp(-1, "更新记录失败")
 		return resp, nil
 	}
@@ -206,7 +206,7 @@ func SubmitAnswer(ctx context.Context, userId int64, wordId int64, answerId int6
 			}
 
 			// Increment the total number of completely completed words
-			if risiteRecord.Level >= global.WORDS_LEVEL_TOTALLY_GRASK {
+			if reciteRecord.Level >= global.WORDS_LEVEL_TOTALLY_GRASK {
 				err = dao.IncrementAllCompletedCount(userId)
 				if err != nil {
 					klog.CtxErrorf(ctx, "Failed to increment all_completed_count for user_id=%v: %v", userId, err)

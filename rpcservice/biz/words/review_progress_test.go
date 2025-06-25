@@ -19,7 +19,7 @@ func TestReviewProgressCountCorrectness(t *testing.T) {
 	// 1. Clean up and create the tables required for testing.
 	recreateMockWordTable()
 	recreateMockAnswerListTable()
-	recreateMockWordReviewRecordTable()
+	recreateMockWordsReciteRecordTable()
 	recreateMockReviewProgressTable()
 
 	// 2. Test data
@@ -31,7 +31,7 @@ func TestReviewProgressCountCorrectness(t *testing.T) {
 	// 3. Simulate a new user adding a word for the first time.
 	t.Run("FirstWordAddition", func(t *testing.T) {
 		// Since vocapi.ProcessWord requires a real API call, we only test the core logic here.
-		// Directly create word, answer_list, and words_risite_record records.
+		// Directly create word, answer_list, and words_recite_record records.
 		word1 := &model.Word{
 			WordName:    "hello",
 			Description: "Hello world",
@@ -57,7 +57,7 @@ func TestReviewProgressCountCorrectness(t *testing.T) {
 		test.Assert(t, err == nil, "Failed to add answer list:", err)
 
 		// Add a review record.
-		record := &model.WordsRisiteRecord{
+		record := &model.WordsReciteRecord{
 			WordId:         int(queriedWord.WordId),
 			Level:          1,
 			NextReviewTime: 1234567890, // Set to the time when a review is required.
@@ -67,7 +67,7 @@ func TestReviewProgressCountCorrectness(t *testing.T) {
 			Score:          0,
 			UserId:         userId,
 		}
-		err = dao.AddWordsRisiteRecord(record)
+		err = dao.AddWordsReciteRecord(record)
 		test.Assert(t, err == nil, "Failed to add review record:", err)
 
 		// 4. Call getTodayReviewProgressWithInitFlag to simulate the logic in AddNewWord.
@@ -115,7 +115,7 @@ func TestReviewProgressCountCorrectness(t *testing.T) {
 		test.Assert(t, err == nil, "Failed to add answer list for second word:", err)
 
 		// add review record
-		record2 := &model.WordsRisiteRecord{
+		record2 := &model.WordsReciteRecord{
 			WordId:         int(queriedWord2.WordId),
 			Level:          1,
 			NextReviewTime: 1234567890, // 设置为需要复习的时间
@@ -125,7 +125,7 @@ func TestReviewProgressCountCorrectness(t *testing.T) {
 			Score:          0,
 			UserId:         userId,
 		}
-		err = dao.AddWordsRisiteRecord(record2)
+		err = dao.AddWordsReciteRecord(record2)
 		test.Assert(t, err == nil, "Failed to add review record for second word:", err)
 
 		// Get the current review progress (should not be re-initialized).
@@ -162,7 +162,7 @@ func TestReviewProgressCountCorrectness(t *testing.T) {
 // TestGetTodayReviewProgress tests the GetTodayReviewProgress function.
 func TestGetTodayReviewProgress(t *testing.T) {
 	recreateMockReviewProgressTable()
-	recreateMockWordReviewRecordTable()
+	recreateMockWordsReciteRecordTable()
 	recreateMockWordTable()
 
 	userId := int64(12345)

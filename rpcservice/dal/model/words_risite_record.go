@@ -3,11 +3,11 @@
 
 package model
 
-// WordsRisiteRecordTableName is the name of the database table corresponding to the WordsRisiteRecord model.
-const WordsRisiteRecordTableName = "words_risite_record"
+// WordsReciteRecordTableName is the name of the database table corresponding to the WordsReciteRecord model.
+const WordsReciteRecordTableName = "words_recite_record"
 
-// WordsRisiteRecord represents a record in the `words_risite_record` database table.
-type WordsRisiteRecord struct {
+// WordsReciteRecord represents a record in the `words_recite_record` database table.
+type WordsReciteRecord struct {
 	Id             int64 `gorm:"column:id;primaryKey;autoIncrement"` // Primary key, auto - incremented.
 	WordId         int   `gorm:"column:word_id"`                     // Unique identifier for the word.
 	Level          int   `gorm:"column:level"`                       // Level of the word review.
@@ -19,7 +19,7 @@ type WordsRisiteRecord struct {
 	UserId         int64 `gorm:"column:user_id"`                     // Unique identifier for the user.
 }
 
-// TableName returns the name of the database table for the WordsRisiteRecord model.
-func (w WordsRisiteRecord) TableName() string {
-	return WordsRisiteRecordTableName
+// TableName returns the name of the database table for the WordsReciteRecord model.
+func (w WordsReciteRecord) TableName() string {
+	return WordsReciteRecordTableName
 }

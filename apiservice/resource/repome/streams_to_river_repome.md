@@ -1301,9 +1301,9 @@ err = stream.Send(&words.ChatResp{
 **用途**：
 存储用户的复习进度，包括待复习数量、已完成复习数量和总完成数量等信息。
 
-#### 4.1.5 WordsRisiteRecord 模型
+#### 4.1.5 WordsReciteRecord 模型
 
-**表名**：`words_risite_record`
+**表名**：`words_recite_record`
 
 **字段**：
 | 字段名           | 类型    | 说明         | 约束       |
@@ -1328,8 +1328,8 @@ erDiagram
     User ||--o{ Word : has
     User ||--o{ AnswerList : has
     User ||--o{ ReviewProgress : has
-    User ||--o{ WordsRisiteRecord : has
-    Word ||--o{ WordsRisiteRecord : has
+    User ||--o{ WordsReciteRecord : has
+    Word ||--o{ WordsReciteRecord : has
     Word }|--|| WordTag : belongs_to
     Word ||--o{ AnswerList : has
     
@@ -1379,7 +1379,7 @@ erDiagram
         int64 LastUpdateTime
     }
     
-    WordsRisiteRecord {
+    WordsReciteRecord {
         int64 Id PK
         int WordId FK
         int Level

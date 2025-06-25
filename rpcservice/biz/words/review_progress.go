@@ -156,7 +156,7 @@ func getWordStatistics(userId int64) (totalWords int32, err error) {
 		return 0, err
 	}
 
-	// 2. Count the number of completed review words: records in the words_risite_record table where the user's level >= 7
+	// 2. Count the number of completed review words: records in the words_recite_record table where the user's level >= 7
 
 	return totalWords, nil
 }

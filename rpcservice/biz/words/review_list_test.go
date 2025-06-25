@@ -18,12 +18,12 @@ func TestGetReviewWordList(t *testing.T) {
 	userId := int64(100)
 
 	// 1. mock table not exist err
-	mockDB.Migrator().DropTable(&model.WordsRisiteRecord{})
+	mockDB.Migrator().DropTable(&model.WordsReciteRecord{})
 	_, err := GetReviewWordList(context.Background(), userId)
 	test.Assert(t, err != nil)
 
 	// 2. mock no record
-	recreateMockWordReviewRecordTable()
+	recreateMockWordsReciteRecordTable()
 	resp, err := GetReviewWordList(context.Background(), userId)
 	test.Assert(t, err == nil)
 	test.Assert(t, resp.TotalNum == "")

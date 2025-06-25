@@ -193,7 +193,7 @@ func createTestTables() error {
 	if err := recreateMockAnswerListTable(); err != nil {
 		return err
 	}
-	if err := recreateMockWordReviewRecordTable(); err != nil {
+	if err := recreateMockWordsReciteRecordTable(); err != nil {
 		return err
 	}
 	if err := recreateMockReviewProgressTable(); err != nil {
@@ -232,12 +232,12 @@ func recreateMockAnswerListTable() error {
 	return nil
 }
 
-func recreateMockWordReviewRecordTable() error {
-	if err := mockDB.Migrator().DropTable(&model.WordsRisiteRecord{}); err != nil {
-		return fmt.Errorf("failed to drop WordsRisiteRecord table: %w", err)
+func recreateMockWordsReciteRecordTable() error {
+	if err := mockDB.Migrator().DropTable(&model.WordsReciteRecord{}); err != nil {
+		return fmt.Errorf("failed to drop WordsReciteRecord table: %w", err)
 	}
-	if err := mockDB.Migrator().CreateTable(&model.WordsRisiteRecord{}); err != nil {
-		return fmt.Errorf("failed to create WordsRisiteRecord table: %w", err)
+	if err := mockDB.Migrator().CreateTable(&model.WordsReciteRecord{}); err != nil {
+		return fmt.Errorf("failed to create WordsReciteRecord table: %w", err)
 	}
 	return nil
 }

@@ -206,7 +206,7 @@ func generateQuestionsForWord(ctx context.Context, userId int64, word *model.Wor
 	var questions []ReviewQuestion
 
 	// Get the user's review record for the word
-	record, err := dao.GetWordsRisiteRecord(userId, int64(word.WordId))
+	record, err := dao.GetWordsReciteRecord(userId, int64(word.WordId))
 	var score int
 	if err != nil {
 		// If no record exists, assume the word is new and set the score to 0

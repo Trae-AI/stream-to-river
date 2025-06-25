@@ -149,7 +149,7 @@ func AddNewWord(ctx context.Context, req *words.AddWordReq) (*words.WordResp, er
 	}
 
 	// Prepare review record data
-	reviewRecord := &model.WordsRisiteRecord{
+	reviewRecord := &model.WordsReciteRecord{
 		Level:          1,
 		NextReviewTime: currentTime,
 		DowngradeStep:  1,
@@ -245,7 +245,7 @@ func GetWordByID(ctx context.Context, wordID int64) (*words.WordResp, error) {
 		// Set the current level to 0
 		Level: 0,
 		// Set the maximum level using the global constant
-		MaxLevel: global.MAX_RISITE_LEVEL,
+		MaxLevel: global.MAX_REVIEW_LEVEL,
 	}
 
 	// Return a successful response with the word information

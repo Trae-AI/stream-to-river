@@ -136,12 +136,12 @@ func UpdateWordTagID(wordID, userID int64, tagID int32) error {
 // Parameters:
 //   - word: A pointer to the `model.Word` struct representing the word record.
 //   - answerList: A pointer to the `model.AnswerList` struct representing the related answer list record.
-//   - reviewRecord: A pointer to the `model.WordsRisiteRecord` struct representing the related review record.
+//   - reviewRecord: A pointer to the `model.WordsReciteRecord` struct representing the related review record.
 //
 // Returns:
 //   - *model.Word: A pointer to the added `Word` record.
 //   - error: An error object if an unexpected error occurs during the process.
-func AddWordWithRelatedRecords(word *model.Word, answerList *model.AnswerList, reviewRecord *model.WordsRisiteRecord) (*model.Word, error) {
+func AddWordWithRelatedRecords(word *model.Word, answerList *model.AnswerList, reviewRecord *model.WordsReciteRecord) (*model.Word, error) {
 	var result *model.Word
 
 	err := WithTransaction(func(tx *gorm.DB) error {
@@ -179,7 +179,7 @@ func AddWordWithRelatedRecords(word *model.Word, answerList *model.AnswerList, r
 		}
 
 		// 6. 添加复习记录
-		if err := tx.Table(model.WordsRisiteRecordTableName).Create(reviewRecord).Error; err != nil {
+		if err := tx.Table(model.WordsReciteRecordTableName).Create(reviewRecord).Error; err != nil {
 			return err
 		}
 

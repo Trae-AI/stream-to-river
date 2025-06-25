@@ -10,35 +10,35 @@ import (
 	"github.com/Trae-AI/stream-to-river/rpcservice/dal/mysql"
 )
 
-// AddWordsRisiteRecord inserts a new review record into the `words_risite_record` table.
+// AddWordsReciteRecord inserts a new review record into the `words_recite_record` table.
 //
 // Parameters:
-//   - record: A pointer to the `model.WordsRisiteRecord` struct that represents the review record to be added.
+//   - record: A pointer to the `model.WordsReciteRecord` struct that represents the review record to be added.
 //
 // Returns:
 //   - error: An error object if an unexpected error occurs during the database operation.
-func AddWordsRisiteRecord(record *model.WordsRisiteRecord) error {
-	ret := mysql.GetDB().Table(model.WordsRisiteRecordTableName).Create(record)
+func AddWordsReciteRecord(record *model.WordsReciteRecord) error {
+	ret := mysql.GetDB().Table(model.WordsReciteRecordTableName).Create(record)
 	if ret.Error != nil {
 		return ret.Error
 	}
-	klog.Infof("Insert words_risite_record=%v into table=%s", record, model.WordsRisiteRecordTableName)
+	klog.Infof("Insert words_recite_record=%v into table=%s", record, model.WordsReciteRecordTableName)
 	return nil
 }
 
-// GetWordsRisiteRecord queries the `words_risite_record` table for a review record using `user_id` and `word_id`.
+// GetWordsReciteRecord queries the `words_recite_record` table for a review record using `user_id` and `word_id`.
 //
 // Parameters:
 //   - userId: The unique identifier of the user.
 //   - wordId: The unique identifier of the word.
 //
 // Returns:
-//   - *model.WordsRisiteRecord: A pointer to the retrieved `WordsRisiteRecord` if found.
+//   - *model.WordsReciteRecord: A pointer to the retrieved `WordsReciteRecord` if found.
 //   - error: An error object if an unexpected error occurs during the database operation.
-func GetWordsRisiteRecord(userId int64, wordId int64) (*model.WordsRisiteRecord, error) {
-	var record model.WordsRisiteRecord
+func GetWordsReciteRecord(userId int64, wordId int64) (*model.WordsReciteRecord, error) {
+	var record model.WordsReciteRecord
 
-	ret := mysql.GetDB().Table(model.WordsRisiteRecordTableName).
+	ret := mysql.GetDB().Table(model.WordsReciteRecordTableName).
 		Where("user_id = ? AND word_id = ?", userId, wordId).
 		First(&record)
 
@@ -46,11 +46,11 @@ func GetWordsRisiteRecord(userId int64, wordId int64) (*model.WordsRisiteRecord,
 		return nil, ret.Error
 	}
 
-	klog.Infof("Found words_risite_record for user_id=%v, word_id=%v", userId, wordId)
+	klog.Infof("Found words_recite_record for user_id=%v, word_id=%v", userId, wordId)
 	return &record, nil
 }
 
-// GetWordsRisiteRecordsByUserAndWordIds performs a batch query on the `words_risite_record` table.
+// GetWordsReciteRecordsByUserAndWordIds performs a batch query on the `words_recite_record` table.
 // It fetches review records based on `user_id` and a list of `word_ids`.
 //
 // Parameters:
@@ -58,12 +58,12 @@ func GetWordsRisiteRecord(userId int64, wordId int64) (*model.WordsRisiteRecord,
 //   - wordIds: A slice of `int64` representing the `word_ids`.
 //
 // Returns:
-//   - map[int64]*model.WordsRisiteRecord: A map where the key is `word_id` and the value is a pointer to the retrieved `WordsRisiteRecord`.
+//   - map[int64]*model.WordsReciteRecord: A map where the key is `word_id` and the value is a pointer to the retrieved `WordsReciteRecord`.
 //   - error: An error object if an unexpected error occurs during the database operation.
-func GetWordsRisiteRecordsByUserAndWordIds(userId int64, wordIds []int64) (map[int64]*model.WordsRisiteRecord, error) {
-	var records []*model.WordsRisiteRecord
+func GetWordsReciteRecordsByUserAndWordIds(userId int64, wordIds []int64) (map[int64]*model.WordsReciteRecord, error) {
+	var records []*model.WordsReciteRecord
 
-	ret := mysql.GetDB().Table(model.WordsRisiteRecordTableName).
+	ret := mysql.GetDB().Table(model.WordsReciteRecordTableName).
 		Where("user_id = ? AND word_id IN ?", userId, wordIds).
 		Find(&records)
 
@@ -72,25 +72,25 @@ func GetWordsRisiteRecordsByUserAndWordIds(userId int64, wordIds []int64) (map[i
 	}
 
 	// Convert the slice of records to a map with word_id as the key
-	recordMap := make(map[int64]*model.WordsRisiteRecord)
+	recordMap := make(map[int64]*model.WordsReciteRecord)
 	for _, record := range records {
 		recordMap[int64(record.WordId)] = record
 	}
 
-	klog.Infof("Found %d words_risite_records for user_id=%v", len(records), userId)
+	klog.Infof("Found %d words_recite_records for user_id=%v", len(records), userId)
 	return recordMap, nil
 }
 
-// UpdateWordsRisiteRecord updates an existing review record in the `words_risite_record` table.
+// UpdateWordsReciteRecord updates an existing review record in the `words_recite_record` table.
 // It updates specific fields (`Level`, `NextReviewTime`, `TotalWrong`, `TotalCorrect`, `Score`) of the record.
 //
 // Parameters:
-//   - record: A pointer to the `model.WordsRisiteRecord` struct that represents the updated review record.
+//   - record: A pointer to the `model.WordsReciteRecord` struct that represents the updated review record.
 //
 // Returns:
 //   - error: An error object if an unexpected error occurs during the database operation.
-func UpdateWordsRisiteRecord(record *model.WordsRisiteRecord) error {
-	ret := mysql.GetDB().Table(model.WordsRisiteRecordTableName).
+func UpdateWordsReciteRecord(record *model.WordsReciteRecord) error {
+	ret := mysql.GetDB().Table(model.WordsReciteRecordTableName).
 		Where("user_id = ? AND word_id = ?", record.UserId, record.WordId).
 		Select("Level", "NextReviewTime", "TotalWrong", "TotalCorrect", "Score").
 		Updates(record)
@@ -99,11 +99,11 @@ func UpdateWordsRisiteRecord(record *model.WordsRisiteRecord) error {
 		return ret.Error
 	}
 
-	klog.Infof("Updated words_risite_record: %+v", record)
+	klog.Infof("Updated words_recite_record: %+v", record)
 	return nil
 }
 
-// GetReviewRecords queries the `words_risite_record` table for review records that need to be reviewed.
+// GetReviewRecords queries the `words_recite_record` table for review records that need to be reviewed.
 // It filters records where the `next_review_time` is less than or equal to the `currentTime`.
 //
 // Parameters:
@@ -111,12 +111,12 @@ func UpdateWordsRisiteRecord(record *model.WordsRisiteRecord) error {
 //   - currentTime: The current timestamp used for filtering.
 //
 // Returns:
-//   - []*model.WordsRisiteRecord: A slice of pointers to the retrieved `WordsRisiteRecord` that meet the criteria.
+//   - []*model.WordsReciteRecord: A slice of pointers to the retrieved `WordsReciteRecord` that meet the criteria.
 //   - error: An error object if an unexpected error occurs during the database operation.
-func GetReviewRecords(userId int64, currentTime int64) ([]*model.WordsRisiteRecord, error) {
-	var records []*model.WordsRisiteRecord
+func GetReviewRecords(userId int64, currentTime int64) ([]*model.WordsReciteRecord, error) {
+	var records []*model.WordsReciteRecord
 
-	ret := mysql.GetDB().Table(model.WordsRisiteRecordTableName).
+	ret := mysql.GetDB().Table(model.WordsReciteRecordTableName).
 		Where("user_id = ? AND next_review_time <= ?", userId, currentTime).
 		Find(&records)
 
@@ -139,7 +139,7 @@ func GetReviewRecords(userId int64, currentTime int64) ([]*model.WordsRisiteReco
 //   - error: An error object if an unexpected error occurs during the database operation.
 func GetCompletedWordsCountFromRecord(userId int64) (int32, error) {
 	var count int64
-	ret := mysql.GetDB().Table(model.WordsRisiteRecordTableName).
+	ret := mysql.GetDB().Table(model.WordsReciteRecordTableName).
 		Where("user_id = ? AND level >= ?", userId, 8).
 		Count(&count)
 
@@ -151,22 +151,22 @@ func GetCompletedWordsCountFromRecord(userId int64) (int32, error) {
 	return int32(count), nil
 }
 
-// DelWordsRisiteRecordByUserID deletes all review records for a specific user from the `words_risite_record` table.
+// DelWordsReciteRecordByUserID deletes all review records for a specific user from the `words_recite_record` table.
 //
 // Parameters:
 //   - userId: The unique identifier of the user.
 //
 // Returns:
 //   - error: An error object if an unexpected error occurs during the database operation.
-func DelWordsRisiteRecordByUserID(userId int64) error {
-	ret := mysql.GetDB().Table(model.WordsRisiteRecordTableName).
+func DelWordsReciteRecordByUserID(userId int64) error {
+	ret := mysql.GetDB().Table(model.WordsReciteRecordTableName).
 		Where("user_id = ?", userId).
-		Delete(&model.WordsRisiteRecord{})
+		Delete(&model.WordsReciteRecord{})
 
 	if ret.Error != nil {
 		return ret.Error
 	}
 
-	klog.Infof("Deleted words_risite_record for user_id=%v", userId)
+	klog.Infof("Deleted words_recite_record for user_id=%v", userId)
 	return nil
 }

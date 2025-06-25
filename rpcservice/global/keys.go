@@ -81,5 +81,5 @@ const (
 )
 
 // ==================== Review level-related constants ====================
-// MAX_RISITE_LEVEL defines the maximum review level.
-const MAX_RISITE_LEVEL = 7
+// MAX_REVIEW_LEVEL defines the maximum review level.
+const MAX_REVIEW_LEVEL = 7
