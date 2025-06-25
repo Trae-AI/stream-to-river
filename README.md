@@ -182,6 +182,23 @@ Refer to the [client/README.md](client/README.md) document.
 
 Refer to the [Coze Config](rpcservice/biz/chat/coze/README.md) document.
 
+## Project Rule & Prompt
+
+### Trae Rules
+[project_rules.md](.trae/rules/project_rules.md)
+
+### Prompt Example
+```markdown
+Implement a function for retrieving the words to be recited. The basic logic is as follows:
+- From the "words_recite_record" table, select all records of the current user (whose user_id is passed as a parameter) whose "next_review_time" is earlier than the current time.
+- For each record, obtain detailed information from the "words" table using their "word_id".
+- For each record, generate three types of review questions. Each question contains the question stem and four answer options.
+    - The first type: Select the correct Chinese meaning. The logic is as follows: the question stem is the "word_name" in the "words" table. The options consist of two parts: one part is the "explanations" in the "words" table. Additionally, randomly select 3 answers from the "answer_list" data table. The selection method is to first find the record in the "answer_list" table where "user" equals the current user, and then randomly select 3 order_ids from 1 to the maximum order_id. The "description" field of these 3 records will be used as the options. Note that an exclusion logic must also be implemented.
+    - The second type: Select the correct English meaning. This can be defined as the constant "CHOOSE_EN". The logic is similar to the above. The difference is that the question stem is the "explanations" in the "words" table. The options are the "word_name" in the "answer_list".
+    - The third type: Select the correct Chinese meaning based on the pronunciation. This can be defined as the constant "PRONOUNCE_CHOOSE". The logic is also similar to the first type. The difference is that the question stem is the "pronounce_us" in the "words" table. The options are the "description" in the "answer_list".
+```
+Generated Code: [review_list.go](rpcservice/biz/words/review_list.go)
+
 ## License
 
 Copyright (c) 2025 Bytedance Ltd. and/or its affiliates. All rights reserved.

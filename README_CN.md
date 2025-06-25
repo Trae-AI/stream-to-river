@@ -179,6 +179,22 @@ JWT_SECRET: your_secret_key
 
 参考 [Coze 配置](rpcservice/biz/chat/coze/README_CN.md) 文档。
 
+## Project Rule & 提示词
+
+### Trae Rules
+[project_rules.md](.trae/rules/project_rules.md)
+
+### 提示词示例
+```markdown
+实现一个获取待背单词的功能。其基本逻辑如下:
+- 从 words_recite_record 表里面，取出当前 user（user_id为调用者传参）的所有记录里面 next_review_time 早于当前时间的所有记录
+- 每一条记录，通过他们的 word_id 从 words 表里面拿到详细信息。
+- 每条记录，生成3种类型的复习题目。每个题目，包含题干和4个答案选项。
+    - 第一种类型：选择正确的中文含义，实现逻辑为，题干是 words 表里面的 word_name。选项包含两部分，其中一个是 words 表里面这个单词的 explains 选项。另外从 answer_list 数据表里面再随机找3个答案。选择方法为，先从 answer_list 表里面，找到 user 等于当前用户的记录中，order_id 最大的一个。然后随机从1到最大的 order_id 里面选3个 order_id，把这3条记录中的 description 字段作为选项。注意，还要实现一个除重逻辑
+    - 第二种类型：选择正确的英文含义，可定义为常量 CHOOSE_EN。实现逻辑和上面的相似。区别为：题干是 words 表里面的 explains。选项是 answer_list 里面的 word_name
+    - 第三种类型：根据读音选择正确的中文含义，可定义常量 PRONOUNCE_CHOOSE，实现逻辑也和第一个类似。区别为：题干是 words 表里面的 pronounce_us。选项是 answer_list 里面的 description
+```
+生成的代码链接：[review_list.go](rpcservice/biz/words/review_list.go)
 
 ## 许可证
 
