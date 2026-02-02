@@ -64,15 +64,15 @@ func RecognizeAudioHandler(ctx context.Context, c *app.RequestContext) {
 	})
 }
 
-func InitModelCfg(appID, token, cluster string) error {
-	if appID == "" || token == "" || cluster == "" {
+func InitModelCfg(appIDValue, tokenValue, clusterValue string) error {
+	if appIDValue == "" || tokenValue == "" || clusterValue == "" {
 		return fmt.Errorf("AsrModel.AppID=%s, AsrModel.Token=%s, AsrModel.Cluster=%s,"+
-			"please check your config file", appID, token, cluster)
+			"please check your config file", appIDValue, tokenValue, clusterValue)
 	}
 	once.Do(func() {
-		appID = appID
-		token = token
-		cluster = cluster
+		appID = appIDValue
+		token = tokenValue
+		cluster = clusterValue
 	})
 	return nil
 }
